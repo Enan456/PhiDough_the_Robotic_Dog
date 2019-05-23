@@ -1,5 +1,6 @@
 // SparkFun CCS811 Arduino Library - Version: Latest 
 #include <SparkFunCCS811.h>
+#define CCS811_ADDR 0x5B //Default I2C Address
 
 //breadboarded stuff
 # define dir 5
@@ -35,6 +36,8 @@ int aCO2;
 int aVOC;
 
 void setup() {
+  Serial.begin(9600);
+  Serial.print("hello cruel world");
   //front
   pinMode(fstp, OUTPUT);
   pinMode(fMS1, OUTPUT);
@@ -50,6 +53,7 @@ void setup() {
   resetEDPins(); //Set step, direction, microstep and enable pins to default states
   myCCS811.begin();
   if (myCCS811.dataAvailable()) {
+      Serial.print("hello cruel data");
     myCCS811.readAlgorithmResults();
     aCO2 = myCCS811.getCO2();
     aVOC = myCCS811.getTVOC();
